@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://belsxmhibm3vb"]
+
+[ext_resource type="Script" path="res://art/tiles/crew.gd" id="1_ccvnr"]
+[ext_resource type="Texture2D" uid="uid://bj2dj54gchva8" path="res://icon.svg" id="2_6nai3"]
+
+[node name="CrewAgent" type="CharacterBody2D"]
+script = ExtResource("1_ccvnr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_6nai3")
