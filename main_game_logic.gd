@@ -62,6 +62,11 @@ var input_controller: InputController
 # ==============================================================================
 
 func _ready():
+        # Ensure render order keeps exterior modules (Hull layer) visible above the floor.
+        tilemap.set_layer_z_index(LAYER_FLOOR, 0)
+        tilemap.set_layer_z_index(LAYER_HULL, 1)
+        tilemap.set_layer_z_index(LAYER_BLUEPRINT, 2)
+
         construction_manager = ConstructionManager.new(self)
         resource_manager = ResourceManager.new(self)
         crew_manager = CrewManager.new(self, construction_manager)
