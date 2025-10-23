@@ -55,7 +55,7 @@ func get_tile_type(tilemap: TileMap, tile_pos: Vector2i, layer: int) -> String:
 	# Based on modules.json:
 	if atlas_coords == Vector2i(1, 0): return "hull"
 	if atlas_coords == Vector2i(0, 0): return "floor"
-	if atlas_coords == Vector2i(3, 0): return "solar_collector"
-	if atlas_coords == Vector2i(5, 0): return "void_drill"
+        if atlas_coords == Vector2i(3, 0): return "solar_collector"
+        if atlas_coords == Vector2i(4, 1): return "void_drill"
 	
 	return "occupied" # Generic occupied tile

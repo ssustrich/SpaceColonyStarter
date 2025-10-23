@@ -42,7 +42,23 @@ func setup_starting_base():
                 for y in range(main.START_BASE_SIZE):
                         var tile_pos = Vector2i(center_pos.x + x, center_pos.y + y)
                         construction_manager.set_module_tile("floor", tile_pos)
-                        if x == 2 and y == 0:
-                                construction_manager.set_module_tile("solar_collector", tile_pos)
-                        if x == 1 and y == 0:
-                                construction_manager.set_module_tile("void_drill", tile_pos)
+
+        var starter_modules := {
+                "solar_collector": Vector2i(2, 0),
+                "void_drill": Vector2i(1, 0),
+        }
+
+        for module_type in starter_modules.keys():
+                if not main.MODULE_DATABASE.has(module_type):
+                        push_error("Starter module missing from database: " + module_type)
+                        continue
+
+                var module_pos = center_pos + starter_modules[module_type]
+                var module_data: Dictionary = main.MODULE_DATABASE[module_type]
+
+                if module_data.get("place_on_hull", false) or module_data.get("layer") == main.LAYER_HULL:
+                        var existing_tile := GlobalUtils.get_tile_type(main.tilemap, module_pos, main.LAYER_HULL)
+                        if existing_tile != "hull":
+                                construction_manager.set_module_tile("hull", module_pos)
+
+                construction_manager.set_module_tile(module_type, module_pos)
