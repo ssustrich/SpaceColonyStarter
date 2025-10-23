@@ -25,12 +25,12 @@ func calculate_power():
         print("--- Power Balance: " + str(main.resources.power_max_gen) + " GEN - " + str(main.resources.power_max_cons) + " CONS = " + str(main.resources.power))
 
 func gather_resources():
-        print(main.built_modules)
-        for module in main.built_modules:
-                var type_data = main.MODULE_DATABASE.get(module.type)
-                var module_stats = type_data.get("stats", {})
-                if module_stats.has("metal_rate"):
-                        var rate = module_stats.metal_rate
-                        if rate > 0 and main.resources.power > main.resources.power_max_cons:
-                                main.resources.metal += rate
-                                print("Gathered " + str(rate) + " metal. Total metal: " + str(main.resources.metal))
+	var rate = 0
+	for module in main.built_modules:
+		var type_data = main.MODULE_DATABASE.get(module.type)
+		var module_stats = type_data.get("stats", {})
+		if module_stats.has("metal_rate"):
+			rate = module_stats.metal_rate
+			if rate > 0 and main.resources.power > main.resources.power_max_cons:
+				main.resources.metal += rate
+	print("Gathered " + str(rate) + " metal. Total metal: " + str(main.resources.metal))
