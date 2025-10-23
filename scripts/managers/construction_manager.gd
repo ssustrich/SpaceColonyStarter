@@ -111,6 +111,11 @@ func set_module_tile(type: String, tile_pos: Vector2i):
         else:
                 main.built_modules.append(new_module)
 
+        if main.zone_manager:
+                var category = main.zone_manager.get_module_category(type)
+                var default_zone = main.zone_manager.get_default_zone_for_category(category)
+                main.zone_manager.ensure_zone(tile_pos, default_zone)
+
 func finalize_construction(blueprint_type: String, tile_pos: Vector2i):
         var module_to_build = blueprint_type.trim_prefix("build_")
         main.tilemap.set_cell(main.LAYER_BLUEPRINT, tile_pos, -1)

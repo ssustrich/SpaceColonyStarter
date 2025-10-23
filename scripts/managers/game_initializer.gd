@@ -3,10 +3,12 @@ extends RefCounted
 
 var main
 var construction_manager
+var zone_manager
 
-func _init(main_ref, construction_mgr):
+func _init(main_ref, construction_mgr, zone_mgr):
         main = main_ref
         construction_manager = construction_mgr
+        zone_manager = zone_mgr
 
 func load_module_database():
         var file = FileAccess.open("res://blocks/modules.json", FileAccess.READ)
@@ -37,11 +39,13 @@ func setup_starting_base():
                         var tile_pos = Vector2i(center_pos.x + x - 1, center_pos.y + y - 1)
                         if x == 0 or x == main.START_BASE_SIZE + 1 or y == 0 or y == main.START_BASE_SIZE + 1:
                                 construction_manager.set_module_tile("hull", tile_pos)
+                                zone_manager.ensure_zone(tile_pos, zone_manager.get_default_zone_for_category(zone_manager.get_module_category("hull")))
 
         for x in range(main.START_BASE_SIZE):
                 for y in range(main.START_BASE_SIZE):
                         var tile_pos = Vector2i(center_pos.x + x, center_pos.y + y)
                         construction_manager.set_module_tile("floor", tile_pos)
+                        zone_manager.ensure_zone(tile_pos, zone_manager.get_default_zone_for_category(zone_manager.get_module_category("floor")))
 
         var starter_modules := {
                 "solar_collector": Vector2i(2, 0),
@@ -62,3 +66,4 @@ func setup_starting_base():
                                 construction_manager.set_module_tile("hull", module_pos)
 
                 construction_manager.set_module_tile(module_type, module_pos)
+                zone_manager.ensure_zone(module_pos, zone_manager.get_default_zone_for_category(zone_manager.get_module_category(module_type)))

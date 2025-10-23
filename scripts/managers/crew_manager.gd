@@ -34,6 +34,12 @@ func handle_crew_commands(event, command_type: String):
                         construction_manager.set_build_mode(false, "")
                 elif main.selected_crew:
                         if GlobalUtils.is_tile_pressurized(main.tilemap, target_tile_pos, main.LAYER_FLOOR):
+                                var zone_type = main.zone_manager.get_zone_type(target_tile_pos)
+                                var crew_role = _get_selected_crew_role()
+                                if not main.zone_manager.is_job_allowed(zone_type, crew_role):
+                                        var zone_name = main.zone_manager.get_zone_name(zone_type)
+                                        print("Command rejected: %s zone is restricted." % zone_name)
+                                        return
                                 main.selected_crew.set_destination(target_world_pos)
                                 main.selected_crew.set_selected(false)
                                 main.selected_crew = null
@@ -60,3 +66,14 @@ func _handle_selection(world_click_pos: Vector2):
                         print("Crew Agent selected: " + main.selected_crew.name)
                 else:
                         print("No crew agent selected.")
+
+func _get_selected_crew_role() -> String:
+        if not main.selected_crew:
+                return "generalist"
+        if main.selected_crew.has_method("get_job_role"):
+                return main.selected_crew.get_job_role()
+        if main.selected_crew.has_meta("job_role"):
+                return str(main.selected_crew.get_meta("job_role"))
+        if "job_role" in main.selected_crew:
+                return str(main.selected_crew.job_role)
+        return "generalist"
