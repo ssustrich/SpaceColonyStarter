@@ -25,6 +25,8 @@ func handle_crew_commands(event, command_type: String):
         var target_world_pos = main.tilemap.map_to_local(target_tile_pos)
 
         if command_type == "select_place":
+                if main.has_method("display_tile_info"):
+                        main.display_tile_info(world_click_pos)
                 if main.is_building:
                         construction_manager.handle_construction_placement(target_tile_pos, target_world_pos)
                 else:

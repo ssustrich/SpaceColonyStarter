@@ -52,6 +52,12 @@ var MODULE_DATABASE_RLUT: Dictionary = {}
 @onready var game_camera: Camera2D = $Camera2D
 @onready var power_timer: Timer = $PowerTimer
 @onready var crew_scene: PackedScene = preload("res://Crew.tscn")
+@onready var tile_info_panel: PanelContainer = $UI/TileInfoPanel
+@onready var tile_info_title: Label = $UI/TileInfoPanel/VBoxContainer/TitleLabel
+@onready var tile_info_coordinates: Label = $UI/TileInfoPanel/VBoxContainer/CoordinatesLabel
+@onready var tile_info_contents: Label = $UI/TileInfoPanel/VBoxContainer/ContentsLabel
+@onready var tile_info_zone: Label = $UI/TileInfoPanel/VBoxContainer/ZoneLabel
+@onready var tile_info_environment: Label = $UI/TileInfoPanel/VBoxContainer/EnvironmentLabel
 
 ## Input Variables for Camera Drag
 var is_middle_mouse_down: bool = false
@@ -72,12 +78,13 @@ var input_controller: InputController
 # ==============================================================================
 
 func _ready():
-		# Ensure render order keeps exterior modules (Hull layer) visible above the floor.
-		tilemap.set_layer_z_index(LAYER_FLOOR, 0)
-		tilemap.set_layer_z_index(LAYER_HULL, 1)
-		tilemap.set_layer_z_index(LAYER_BLUEPRINT, 2)
-		zone_overlay.set_layer_z_index(0, 3)
-		zone_overlay.clear()
+                # Ensure render order keeps exterior modules (Hull layer) visible above the floor.
+                tilemap.set_layer_z_index(LAYER_FLOOR, 0)
+                tilemap.set_layer_z_index(LAYER_HULL, 1)
+                tilemap.set_layer_z_index(LAYER_BLUEPRINT, 2)
+                zone_overlay.set_layer_z_index(0, 3)
+                zone_overlay.clear()
+                _reset_tile_info_panel()
 
 		construction_manager = ConstructionManager.new(self)
 		resource_manager = ResourceManager.new(self)
@@ -117,7 +124,7 @@ func _unhandled_input(event):
 		input_controller.handle_unhandled_input(event)
 
 func _physics_process(delta):
-		input_controller.physics_process(delta)
+                input_controller.physics_process(delta)
 
 # ==============================================================================
 # 5. CONSTRUCTION LOGIC
@@ -128,4 +135,86 @@ func finalize_construction(blueprint_type: String, tile_pos: Vector2i):
 		construction_manager.finalize_construction(blueprint_type, tile_pos)
 
 func get_zone_type_for_tile(tile_pos: Vector2i) -> String:
-		return zone_manager.get_zone_type(tile_pos)
+                return zone_manager.get_zone_type(tile_pos)
+
+func display_tile_info(world_position: Vector2) -> void:
+                if tilemap == null:
+                                return
+
+                var tile_pos := tilemap.local_to_map(world_position)
+                var zone_type := zone_manager.get_zone_type(tile_pos)
+                var zone_name := zone_manager.get_zone_name(zone_type)
+                var contents_description := _describe_tile_contents(tile_pos)
+                var pressurized := GlobalUtils.is_tile_pressurized(tilemap, tile_pos, LAYER_FLOOR)
+                var job_filters: Array = zone_manager.get_zone_definition(zone_type).get("job_filters", [])
+                var zone_details := zone_name
+                if not job_filters.is_empty():
+                                zone_details += " (Jobs: " + ", ".join(job_filters) + ")"
+
+                tile_info_panel.visible = true
+                tile_info_title.text = "Tile Stats"
+                tile_info_coordinates.text = "Coordinates: %d, %d" % [tile_pos.x, tile_pos.y]
+                tile_info_contents.text = "Contents: " + contents_description
+                tile_info_zone.text = "Zone: " + zone_details
+                tile_info_environment.text = "Pressurized: " + ("Yes" if pressurized else "No")
+
+func _reset_tile_info_panel() -> void:
+                if tile_info_panel == null:
+                                return
+                tile_info_panel.visible = false
+                tile_info_title.text = "Tile Stats"
+                tile_info_coordinates.text = "Click a tile to inspect it."
+                tile_info_contents.text = ""
+                tile_info_zone.text = ""
+                tile_info_environment.text = ""
+
+func _describe_tile_contents(tile_pos: Vector2i) -> String:
+                var layers := [
+                                {"layer": LAYER_BLUEPRINT, "prefix": "Blueprint: "},
+                                {"layer": LAYER_FLOOR, "prefix": ""},
+                                {"layer": LAYER_HULL, "prefix": ""},
+                ]
+
+                var descriptions: Array[String] = []
+                for entry in layers:
+                                var raw_type := GlobalUtils.get_tile_type(tilemap, tile_pos, entry.layer)
+                                if raw_type == "":
+                                                continue
+                                var formatted := _format_module_name(raw_type)
+                                if formatted == "":
+                                                continue
+                                var prefix: String = entry.prefix
+                                if prefix != "" and not formatted.begins_with(prefix):
+                                                descriptions.append(prefix + formatted)
+                                else:
+                                                descriptions.append(formatted)
+
+                if descriptions.is_empty():
+                                return "Empty space"
+
+                return ", ".join(descriptions)
+
+func _format_module_name(raw_name: String) -> String:
+                if raw_name == "":
+                                return ""
+
+                var base_name := raw_name
+                var variant := ""
+
+                if ":" in raw_name:
+                                var parts := raw_name.split(":", false, 2)
+                                base_name = parts[0]
+                                variant = parts[1] if parts.size() > 1 else ""
+
+                var formatted_base := _to_title(base_name)
+                if variant == "":
+                                return formatted_base
+                return formatted_base + " (" + _to_title(variant) + ")"
+
+func _to_title(value: String) -> String:
+                var words := value.replace("_", " ").split(" ", false)
+                for i in range(words.size()):
+                                if words[i].length() == 0:
+                                                continue
+                                words[i] = words[i].substr(0, 1).to_upper() + words[i].substr(1).to_lower()
+                return " ".join(words)
