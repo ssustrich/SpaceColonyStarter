@@ -1,92 +1,202 @@
 {
-  "hull": {
-	"layer": 0,
-	"atlas_coords": [
-	  1,
-	  0
-	],
-	"cost": {
-	  "metal": 0,
-	  "components": 0
+  "ship": {
+	"hull": {
+	  "layer": 0,
+	  "atlas_coords": [
+		1,
+		3,
+		0
+	  ],
+	  "variants": {
+		"center": {
+		  "atlas_coords": [
+			1,
+			2,
+			0
+		  ]
+		},
+		"edge_north": {
+		  "atlas_coords": [
+			1,
+			2,
+			0
+		  ]
+		},
+		"edge_south": {
+		  "atlas_coords": [
+			1,
+			2,
+			2
+		  ]
+		},
+		"edge_east": {
+		  "atlas_coords": [
+			1,
+			3,
+			1
+		  ]
+		},
+		"edge_west": {
+		  "atlas_coords": [
+			1,
+			1,
+			1
+		  ]
+		},
+		"corner_ne": {
+		  "atlas_coords": [
+			1,
+			3,
+			0
+		  ]
+		},
+		"corner_nw": {
+		  "atlas_coords": [
+			1,
+			1,
+			0
+		  ]
+		},
+		"corner_se": {
+		  "atlas_coords": [
+			1,
+			3,
+			2
+		  ]
+		},
+		"corner_sw": {
+		  "atlas_coords": [
+			1,
+			1,
+			2
+		  ]
+		}
+	  },
+	  "cost": {
+		"metal": 0,
+		"components": 0
+	  },
+	  "stats": {
+		"power_cons": 1
+	  }
 	},
-	"stats": {
-	  "power_cons": 1
+	"floor": {
+	  "layer": 1,
+	  "atlas_coords": [
+		1,
+		0,
+		0
+	  ],
+	  "cost": {
+		"metal": 0,
+		"components": 0
+	  },
+	  "stats": {
+		"power_cons": 0.5
+	  }
+	},
+	"solar_collector": {
+	  "layer": 0,
+	  "atlas_coords": [
+		0,
+		1,
+		1
+	  ],
+	  "cost": {
+		"metal": 10,
+		"components": 5
+	  },
+	  "stats": {
+		"power_gen": 5,
+		"power_cons": 0
+	  }
+	},
+	"void_drill": {
+	  "layer": 0,
+	  "atlas_coords": [
+		1,
+		0,
+		3
+	  ],
+	  "cost": {
+		"metal": 20,
+		"components": 10
+	  },
+	  "stats": {
+		"power_cons": 3,
+		"metal_rate": 5
+	  },
+	  "place_on_hull": true
+	},
+	"airlock": {
+	  "layer": 0,
+	  "atlas_coords": [
+		0,
+		6,
+		0
+	  ],
+	  "cost": {
+		"metal": 25,
+		"components": 10
+	  },
+	  "stats": {
+		"power_cons": 2
+	  },
+	  "is_airlock": true
+	},
+	"reactor": {
+	  "layer": 1,
+	  "atlas_coords": [
+		0,
+		4,
+		0
+	  ],
+	  "cost": {
+		"metal": 30,
+		"components": 15
+	  },
+	  "stats": {
+		"power_gen": 10,
+		"power_cons": 5,
+		"metal_rate": 0
+	  }
 	}
   },
-  "floor": {
-	"layer": 1,
-	"atlas_coords": [
-	  0,
-	  0
-	],
-	"cost": {
-	  "metal": 0,
-	  "components": 0
+  "zone": {
+	"engineering": {
+	  "atlas_coords": [
+		2,
+		0,
+		1
+	  ]
 	},
-	"stats": {
-	  "power_cons": 0.5
-	}
-  },
-  "solar_collector": {
-	"layer": 0,
-	"atlas_coords": [
-	  3,
-	  0
-	],
-	"cost": {
-	  "metal": 10,
-	  "components": 5
+	"crew": {
+	  "atlas_coords": [
+		2,
+		0,
+		2
+	  ]
 	},
-	"stats": {
-	  "power_gen": 5,
-	  "power_cons": 0
-	}
-  },
-  "void_drill": {
-	"layer": 0,
-	"atlas_coords": [
-	  4,
-	  1
-	],
-	"cost": {
-	  "metal": 20,
-	  "components": 10
+	"cargo": {
+	  "atlas_coords": [
+		2,
+		0,
+		3
+	  ]
 	},
-	"stats": {
-	  "power_cons": 3,
-	  "metal_rate": 5
+	"brig": {
+	  "atlas_coords": [
+		2,
+		0,
+		4
+	  ]
 	},
-	"place_on_hull": true
-  },
-  "airlock": {
-	"layer": 0,
-	"atlas_coords": [
-	  6,
-	  0
-	],
-	"cost": {
-	  "metal": 25,
-	  "components": 10
-	},
-	"stats": {
-	  "power_cons": 2
-	},
-	"is_airlock": true
-  },
-  "reactor": {
-	"layer": 1,
-	"atlas_coords": [
-	  4,
-	  0
-	],
-	"cost": {
-	  "metal": 30,
-	  "components": 15
-	},
-	"stats": {
-	  "power_gen": 10,
-	  "power_cons": 5,
-	  "metal_rate": 0
+	"perishableStorage": {
+	  "atlas_coords": [
+		2,
+		1,
+		0
+	  ]
 	}
   }
 }
