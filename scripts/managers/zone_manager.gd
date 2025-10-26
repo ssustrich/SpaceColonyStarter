@@ -62,17 +62,20 @@ func _load_zone_database() -> void:
 		_load_default_zone_definitions()
 		return
 
-	var parsed := JSON.parse_string(file.get_as_text())
-	if not (parsed is Dictionary):
+	var parsed_variant: Variant = JSON.parse_string(file.get_as_text())
+	if not (parsed_variant is Dictionary):
 		push_error("zones.json has invalid format; expected a dictionary of zone entries.")
 		_load_default_zone_definitions()
 		return
 
+	var parsed: Dictionary = parsed_variant
+
 	for zone_id in parsed.keys():
-		var raw_entry = parsed[zone_id]
-		if not (raw_entry is Dictionary):
+		var raw_entry_variant: Variant = parsed[zone_id]
+		if not (raw_entry_variant is Dictionary):
 			continue
 
+		var raw_entry: Dictionary = raw_entry_variant
 		var entry: Dictionary = raw_entry.duplicate(true)
 		entry["display_name"] = String(entry.get("display_name", zone_id.capitalize()))
 		entry["allowed_categories"] = entry.get("allowed_categories", [])
@@ -292,4 +295,4 @@ func _apply_tile_modulate(layer: int, tile_pos: Vector2i, zone_data: Dictionary)
 	var color: Color = color_value if color_value is Color else Color(1, 1, 1, opacity)
 	color.a = opacity if opacity >= 0.0 else color.a
 	tile_data.set_modulate(color)
-	overlay.set_cell_tile_data(layer, tile_pos, tile_data)
+	# In Godot 4, modifying the TileData returned from get_cell_tile_data updates the map in place.
