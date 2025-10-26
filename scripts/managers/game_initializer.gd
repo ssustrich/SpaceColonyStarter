@@ -87,8 +87,8 @@ func setup_starting_base():
 						#zone_manager.ensure_zone(tile_pos, zone_manager.get_default_zone_for_category(zone_manager.get_module_category("floor")))
 
 		var starter_modules := {
-				"solar_collector": Vector2i(2, -2),
-				"void_drill": Vector2i(1, -2),
+				"solar_collector": Vector2i(2, 2),
+				"void_drill": Vector2i(2, -1),
 		}
 
 		for module_type in starter_modules.keys():

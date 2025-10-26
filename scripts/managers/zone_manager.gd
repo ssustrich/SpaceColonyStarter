@@ -290,7 +290,7 @@ func _apply_tile_modulate(layer: int, tile_pos: Vector2i, zone_data: Dictionary)
 	var tile_data := overlay.get_cell_tile_data(layer, tile_pos)
 	if tile_data == null:
 		return
-	var opacity := clamp(float(zone_data.get("opacity", DEFAULT_OPACITY)), 0.0, 1.0)
+	var opacity: Variant = clamp(float(zone_data.get("opacity", DEFAULT_OPACITY)), 0.0, 1.0)
 	var color_value = zone_data.get("color", Color(1, 1, 1, opacity))
 	var color: Color = color_value if color_value is Color else Color(1, 1, 1, opacity)
 	color.a = opacity if opacity >= 0.0 else color.a
