@@ -98,9 +98,9 @@
 	"solar_collector": {
 	  "layer": 0,
 	  "atlas_coords": [
-		0,
 		1,
-		1
+		1,
+		3
 	  ],
 	  "cost": {
 		"metal": 10,
@@ -116,7 +116,7 @@
 	  "atlas_coords": [
 		1,
 		0,
-		3
+		4
 	  ],
 	  "cost": {
 		"metal": 20,
