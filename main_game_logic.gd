@@ -20,11 +20,11 @@ const LAYER_BLUEPRINT = 2
 
 ## Resources
 var resources: Dictionary = {
-        "metal": 100.0,
-        "components": 50.0,
-        "power": 0.0,
-        "power_max_gen": 0.0,
-        "power_max_cons": 0.0,
+		"metal": 100.0,
+		"components": 50.0,
+		"power": 0.0,
+		"power_max_gen": 0.0,
+		"power_max_cons": 0.0,
 }
 
 ## Game State Variables
@@ -44,6 +44,7 @@ var is_hull_expanding: bool = false # H key mode
 
 ## Data
 var MODULE_DATABASE: Dictionary = {}
+var MODULE_DATABASE_RLUT: Dictionary = {}
 
 ## Node References (Must match node names in Game.tscn)
 @onready var tilemap: TileMap = $TileMap
@@ -71,38 +72,38 @@ var input_controller: InputController
 # ==============================================================================
 
 func _ready():
-        # Ensure render order keeps exterior modules (Hull layer) visible above the floor.
-        tilemap.set_layer_z_index(LAYER_FLOOR, 0)
-        tilemap.set_layer_z_index(LAYER_HULL, 1)
-        tilemap.set_layer_z_index(LAYER_BLUEPRINT, 2)
-        zone_overlay.set_layer_z_index(0, 3)
-        zone_overlay.clear()
+		# Ensure render order keeps exterior modules (Hull layer) visible above the floor.
+		tilemap.set_layer_z_index(LAYER_FLOOR, 0)
+		tilemap.set_layer_z_index(LAYER_HULL, 1)
+		tilemap.set_layer_z_index(LAYER_BLUEPRINT, 2)
+		zone_overlay.set_layer_z_index(0, 3)
+		zone_overlay.clear()
 
-        construction_manager = ConstructionManager.new(self)
-        resource_manager = ResourceManager.new(self)
-        crew_manager = CrewManager.new(self, construction_manager)
-        zone_manager = ZoneManager.new(self, zone_overlay)
-        input_controller = InputController.new(self, crew_manager, construction_manager, zone_manager)
-        game_initializer = GameInitializer.new(self, construction_manager, zone_manager)
-
-        zone_manager.initialize_zone_map()
-
-        call_deferred("_initialize_game_systems")
+		construction_manager = ConstructionManager.new(self)
+		resource_manager = ResourceManager.new(self)
+		crew_manager = CrewManager.new(self, construction_manager)
+		zone_manager = ZoneManager.new(self, zone_overlay)
+		input_controller = InputController.new(self, crew_manager, construction_manager, zone_manager)
+		game_initializer = GameInitializer.new(self, construction_manager, zone_manager)
+		zone_manager.initialize_zone_map()
+		
+		GlobalUtils.register_main(self)		
+		call_deferred("_initialize_game_systems")
 
 func _initialize_game_systems():
-        game_initializer.load_module_database()
-        game_initializer.setup_starting_base()
-        power_timer.start(5.0)
-        resource_manager.calculate_power()
-        zone_manager.refresh_overlay_from_map()
-        # crew_manager.spawn_crew_member()
+		game_initializer.load_module_database()
+		game_initializer.setup_starting_base()
+		power_timer.start(5.0)
+		resource_manager.calculate_power()
+		zone_manager.refresh_overlay_from_map()
+		# crew_manager.spawn_crew_member()
 
 # ==============================================================================
 # 2. GAME LOOPS AND RESOURCE MANAGEMENT
 # ==============================================================================
 
 func _on_power_timer_timeout():
-        resource_manager.on_power_timer_timeout()
+		resource_manager.on_power_timer_timeout()
 
 # ==============================================================================
 # 3. CREW MANAGEMENT AND MOVEMENT
@@ -113,10 +114,10 @@ func _on_power_timer_timeout():
 # ==============================================================================
 
 func _unhandled_input(event):
-        input_controller.handle_unhandled_input(event)
+		input_controller.handle_unhandled_input(event)
 
 func _physics_process(delta):
-        input_controller.physics_process(delta)
+		input_controller.physics_process(delta)
 
 # ==============================================================================
 # 5. CONSTRUCTION LOGIC
@@ -124,7 +125,7 @@ func _physics_process(delta):
 
 # Function called by Crew.gd when construction is complete
 func finalize_construction(blueprint_type: String, tile_pos: Vector2i):
-        construction_manager.finalize_construction(blueprint_type, tile_pos)
+		construction_manager.finalize_construction(blueprint_type, tile_pos)
 
 func get_zone_type_for_tile(tile_pos: Vector2i) -> String:
-        return zone_manager.get_zone_type(tile_pos)
+		return zone_manager.get_zone_type(tile_pos)
