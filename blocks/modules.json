@@ -1,5 +1,4 @@
 {
-  "ship": {
 	"hull": {
 	  "layer": 0,
 	  "atlas_coords": [
@@ -107,7 +106,7 @@
 		"components": 5
 	  },
 	  "stats": {
-		"power_gen": 5,
+		"power_gen": 100,
 		"power_cons": 0
 	  }
 	},
@@ -156,47 +155,9 @@
 		"components": 15
 	  },
 	  "stats": {
-		"power_gen": 10,
+		"power_gen": 100,
 		"power_cons": 5,
 		"metal_rate": 0
 	  }
 	}
-  },
-  "zone": {
-	"engineering": {
-	  "atlas_coords": [
-		2,
-		0,
-		1
-	  ]
-	},
-	"crew": {
-	  "atlas_coords": [
-		2,
-		0,
-		2
-	  ]
-	},
-	"cargo": {
-	  "atlas_coords": [
-		2,
-		0,
-		3
-	  ]
-	},
-	"brig": {
-	  "atlas_coords": [
-		2,
-		0,
-		4
-	  ]
-	},
-	"perishableStorage": {
-	  "atlas_coords": [
-		2,
-		1,
-		0
-	  ]
-	}
-  }
 }

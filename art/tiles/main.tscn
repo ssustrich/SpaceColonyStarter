@@ -113,6 +113,8 @@ metadata/name = "goo"
 
 [node name="PowerTimer" type="Timer" parent="."]
 
+[node name="PowerTimer2" type="Timer" parent="."]
+
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 tile_set = SubResource("TileSet_bx14j")
 
@@ -120,36 +122,38 @@ tile_set = SubResource("TileSet_bx14j")
 
 [node name="TileInfoPanel" type="PanelContainer" parent="UI"]
 visible = false
+custom_minimum_size = Vector2(280, 0)
 offset_left = 24.0
 offset_top = 24.0
-custom_minimum_size = Vector2(280, 0)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/TileInfoPanel"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 12.0
-offset_top = 12.0
-offset_right = -12.0
-offset_bottom = -12.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 theme_override_constants/separation = 6
 
 [node name="TitleLabel" type="Label" parent="UI/TileInfoPanel/VBoxContainer"]
-text = "Tile Stats"
+layout_mode = 2
 theme_override_font_sizes/font_size = 18
+text = "Tile Stats"
 
 [node name="CoordinatesLabel" type="Label" parent="UI/TileInfoPanel/VBoxContainer"]
+layout_mode = 2
 text = "Coordinates: -"
 
 [node name="ContentsLabel" type="Label" parent="UI/TileInfoPanel/VBoxContainer"]
+layout_mode = 2
 text = "Contents: -"
 
 [node name="ZoneLabel" type="Label" parent="UI/TileInfoPanel/VBoxContainer"]
+layout_mode = 2
 text = "Zone: -"
 
 [node name="EnvironmentLabel" type="Label" parent="UI/TileInfoPanel/VBoxContainer"]
+layout_mode = 2
 text = "Pressurized: -"
 
+[node name="ResourceLabel" type="Label" parent="UI/TileInfoPanel/VBoxContainer"]
+layout_mode = 2
+text = "Resources - "
+
 [connection signal="timeout" from="PowerTimer" to="." method="_on_power_timer_timeout"]
+[connection signal="timeout" from="PowerTimer2" to="." method="_on_power_timer_timeout"]

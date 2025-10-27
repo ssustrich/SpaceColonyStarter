@@ -23,7 +23,7 @@
   "industrial": {
 	"display_name": "Industrial",
 	"atlas_coords": [2, 2, 0],
-	"opacity": 0.35,
+	"opacity": 0.25,
 	"allowed_categories": ["industry", "power", "structure"],
 	"job_filters": ["generalist", "engineer"]
   }

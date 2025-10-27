@@ -16,8 +16,7 @@ func load_module_database():
 				var json_string = file.get_as_text()
 				var json_data = JSON.parse_string(json_string)
 				var hull_rotations;
-				if json_data is Dictionary and json_data.has("ship"):
-					json_data = json_data.get("ship")
+				if json_data is Dictionary:
 					for type_key in json_data.keys():
 						print(type_key)
 						var module_data = json_data[type_key]
@@ -84,25 +83,26 @@ func setup_starting_base():
 						var tile_pos = Vector2i(center_pos.x + x, center_pos.y + y)
 						construction_manager.set_module_tile("floor", tile_pos)
 						construction_manager.set_module_tile("floor", tile_pos)
-						#zone_manager.ensure_zone(tile_pos, zone_manager.get_default_zone_for_category(zone_manager.get_module_category("floor")))
+						zone_manager.ensure_zone(tile_pos, zone_manager.get_default_zone_for_category(zone_manager.get_module_category("floor")))
 
-		var starter_modules := {
-				"solar_collector": Vector2i(2, 2),
-				"void_drill": Vector2i(2, -1),
-		}
-
-		for module_type in starter_modules.keys():
-				if not main.MODULE_DATABASE.has(module_type):
-						push_error("Starter module missing from database: " + module_type)
-						continue
-
-				var module_pos = center_pos + starter_modules[module_type]
-				var module_data: Dictionary = main.MODULE_DATABASE[module_type]
-
-				if module_data.get("place_on_hull", false) or module_data.get("layer") == main.LAYER_HULL:
-						var existing_tile := GlobalUtils.get_tile_type(main.tilemap, module_pos, main.LAYER_HULL)
-						if existing_tile != "hull":
-								construction_manager.set_module_tile("hull", module_pos)
-
-				construction_manager.set_module_tile(module_type, module_pos)
-				zone_manager.ensure_zone(module_pos, zone_manager.get_default_zone_for_category(zone_manager.get_module_category(module_type)))
+		construction_manager.set_module_tile("solar_collector",Vector2i(50, 50))
+		#var starter_modules := {
+				#"solar_collector": Vector2i(2, 5),
+				#"void_drill": Vector2i(2, -1),
+		#}
+#
+		#for module_type in starter_modules.keys():
+				#if not main.MODULE_DATABASE.has(module_type):
+						#push_error("Starter module missing from database: " + module_type)
+						#continue
+#
+				#var module_pos = center_pos + starter_modules[module_type]
+				#var module_data: Dictionary = main.MODULE_DATABASE[module_type]
+#
+				#if module_data.get("place_on_hull", false) or module_data.get("layer") == main.LAYER_HULL:
+						#var existing_tile := GlobalUtils.get_tile_type(main.tilemap, module_pos, main.LAYER_HULL)
+						#if existing_tile != "hull":
+								#construction_manager.set_module_tile("hull", module_pos)
+#
+				#construction_manager.set_module_tile(module_type, module_pos)
+				#zone_manager.ensure_zone(module_pos, zone_manager.get_default_zone_for_category(zone_manager.get_module_category(module_type)))

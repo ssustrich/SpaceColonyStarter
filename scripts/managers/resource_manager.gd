@@ -13,8 +13,11 @@ func on_power_timer_timeout():
 func calculate_power():
 		main.resources.power_max_gen = 0.0
 		main.resources.power_max_cons = 0.0
-
+		var dic =  main.built_modules
+		print(dic)
 		for module in main.built_modules:
+
+			
 				var type_data = main.MODULE_DATABASE.get(module.type)
 				if not type_data:
 						continue
@@ -24,8 +27,10 @@ func calculate_power():
 						continue
 				var module_stats = type_data.get("stats", {})
 				if module_stats:
-						main.resources.power_max_gen += module_stats.get("power_gen", 0.0)
-						main.resources.power_max_cons += module_stats.get("power_cons", 0.0)
+					print(module_stats)
+					if module_stats.has("power_gen"):
+						main.resources.power_max_gen += module_stats.get("power_gen", 1.0)
+					main.resources.power_max_cons += module_stats.get("power_cons", 0.0)
 
 		main.resources.power = main.resources.power_max_gen - main.resources.power_max_cons
 		print("--- Power Balance: " + str(main.resources.power_max_gen) + " GEN - " + str(main.resources.power_max_cons) + " CONS = " + str(main.resources.power))
