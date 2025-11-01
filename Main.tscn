@@ -1,3 +1,238 @@
-[gd_scene format=3 uid="uid://bfy3cl4h8xff6"]
+[gd_scene load_steps=13 format=3 uid="uid://d4gy1k7pe8io3"]
 
-[node name="Main" type="Node2D"]
+[ext_resource type="Script" path="res://main_game_logic.gd" id="1_d8ifu"]
+[ext_resource type="Texture2D" uid="uid://b2ttf6eta16uj" path="res://art/tiles/simple64x_tiles6.png" id="2_utq16"]
+[ext_resource type="Texture2D" uid="uid://b3h3ee5bec8tx" path="res://art/tiles/shipTileSet.png" id="3_8tvby"]
+[ext_resource type="Texture2D" uid="uid://bnhrc408dcufb" path="res://art/tiles/5x5Palete.png" id="4_mu87k"]
+[ext_resource type="Texture2D" uid="uid://dgkulykt31wc8" path="res://art/tiles/16x24.png" id="5_jmkfq"]
+[ext_resource type="Texture2D" uid="uid://b57f1hpniwbix" path="res://art/938d6f85-a205-4197-ab35-01e1b44c9b41 (1).png" id="6_ge1db"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nmoj4"]
+texture = ExtResource("2_utq16")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8h0d8"]
+texture = ExtResource("3_8tvby")
+margins = Vector2i(1, 1)
+separation = Vector2i(2, 2)
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+1:0/0 = 0
+2:0/next_alternative_id = 2
+2:0/0 = 0
+2:0/1 = 1
+3:0/0 = 0
+4:0/0 = 0
+0:1/0 = 0
+1:1/next_alternative_id = 2
+1:1/0 = 0
+1:1/1 = 1
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_f65l2"]
+texture = ExtResource("4_mu87k")
+margins = Vector2i(1, 1)
+separation = Vector2i(2, 2)
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1jig4"]
+texture = ExtResource("5_jmkfq")
+margins = Vector2i(1, 1)
+separation = Vector2i(1, 1)
+texture_region_size = Vector2i(16, 24)
+0:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+4:4/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+2:1/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:0/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+6:0/0 = 0
+0:2/0 = 0
+0:3/0 = 0
+1:2/0 = 0
+1:3/0 = 0
+2:2/0 = 0
+2:3/0 = 0
+3:2/0 = 0
+3:3/0 = 0
+4:2/0 = 0
+4:3/0 = 0
+5:2/0 = 0
+5:3/0 = 0
+6:2/0 = 0
+6:3/0 = 0
+0:4/0 = 0
+0:5/0 = 0
+0:6/0 = 0
+1:4/0 = 0
+1:5/0 = 0
+1:6/0 = 0
+2:4/0 = 0
+2:5/0 = 0
+2:6/0 = 0
+3:4/0 = 0
+3:5/0 = 0
+3:6/0 = 0
+4:5/0 = 0
+4:6/0 = 0
+5:4/0 = 0
+5:5/0 = 0
+5:6/0 = 0
+6:4/0 = 0
+6:5/0 = 0
+6:6/0 = 0
+7:4/0 = 0
+7:5/0 = 0
+7:6/0 = 0
+0:7/0 = 0
+1:7/0 = 0
+2:7/0 = 0
+3:7/0 = 0
+4:7/0 = 0
+5:7/0 = 0
+6:7/0 = 0
+7:7/0 = 0
+7:0/0 = 0
+7:1/0 = 0
+7:2/0 = 0
+7:3/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_bl2g7"]
+resource_name = "0"
+tile_size = Vector2i(16, 24)
+sources/0 = SubResource("TileSetAtlasSource_nmoj4")
+sources/1 = SubResource("TileSetAtlasSource_8h0d8")
+sources/2 = SubResource("TileSetAtlasSource_f65l2")
+sources/3 = SubResource("TileSetAtlasSource_1jig4")
+
+[sub_resource type="TileSet" id="TileSet_bx14j"]
+
+[node name="main" type="Node2D"]
+script = ExtResource("1_d8ifu")
+
+[node name="ZoneOverlay" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_bl2g7")
+format = 2
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Camera2D"]
+z_index = -4096
+z_as_relative = false
+rotation = 1.5708
+texture = ExtResource("6_ge1db")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_bl2g7")
+format = 2
+layer_0/name = "Hull"
+layer_1/name = "FLOOR"
+layer_2/name = "BlueprintL"
+metadata/name = "goo"
+
+[node name="PowerTimer" type="Timer" parent="."]
+
+[node name="PowerTimer2" type="Timer" parent="."]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_bx14j")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="TileInfoPanel" type="PanelContainer" parent="UI"]
+visible = false
+custom_minimum_size = Vector2(280, 0)
+offset_left = 24.0
+offset_top = 24.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/TileInfoPanel"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="TitleLabel" type="Label" parent="UI/TileInfoPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Tile Stats"
+
+[node name="CoordinatesLabel" type="Label" parent="UI/TileInfoPanel/VBoxContainer"]
+layout_mode = 2
+text = "Coordinates: -"
+
+[node name="ContentsLabel" type="Label" parent="UI/TileInfoPanel/VBoxContainer"]
+layout_mode = 2
+text = "Contents: -"
+
+[node name="ZoneLabel" type="Label" parent="UI/TileInfoPanel/VBoxContainer"]
+layout_mode = 2
+text = "Zone: -"
+
+[node name="EnvironmentLabel" type="Label" parent="UI/TileInfoPanel/VBoxContainer"]
+layout_mode = 2
+text = "Pressurized: -"
+
+[node name="ResourceLabel" type="Label" parent="UI/TileInfoPanel/VBoxContainer"]
+layout_mode = 2
+text = "Resources - "
+
+[connection signal="timeout" from="PowerTimer" to="." method="_on_power_timer_timeout"]
+[connection signal="timeout" from="PowerTimer2" to="." method="_on_power_timer_timeout"]

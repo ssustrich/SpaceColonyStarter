@@ -9,7 +9,9 @@ const InputController = preload("res://scripts/managers/input_controller.gd")
 
 ## Game State Constants
 const GAME_NAME = "Void Keeper"
-const TILE_SIZE = 64.0
+const TILE_SIZE = 16.0
+#const TILE_WIDTH = 16
+#const TILE_HEIGHT = 24
 const START_BASE_POS = 50 # Starting tile coordinate
 const START_BASE_SIZE = 5 # Size of the initial pressurized block
 
@@ -36,6 +38,8 @@ const ZONE_TYPE_UNASSIGNED := ZoneManager.ZONE_TYPE_UNASSIGNED
 const ZONE_TYPE_GENERAL := ZoneManager.ZONE_TYPE_GENERAL
 const ZONE_TYPE_STORAGE := ZoneManager.ZONE_TYPE_STORAGE
 const ZONE_TYPE_INDUSTRIAL := ZoneManager.ZONE_TYPE_INDUSTRIAL
+const ZONE_TYPE_UNPREASURIZED := ZoneManager.ZONE_TYPE_UNPREASURIZED
+
 
 ## Construction State
 var is_building: bool = false
@@ -104,7 +108,7 @@ func _initialize_game_systems():
 		power_timer.start(5.0)
 		resource_manager.calculate_power()
 		zone_manager.refresh_overlay_from_map()
-		# crew_manager.spawn_crew_member()
+		crew_manager.spawn_crew_member()
 
 # ==============================================================================
 # 2. GAME LOOPS AND RESOURCE MANAGEMENT
