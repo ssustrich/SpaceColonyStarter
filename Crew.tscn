@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://belsxmhibm3vb"]
 
 [ext_resource type="Script" path="res://art/tiles/crew.gd" id="1_ccvnr"]
-[ext_resource type="Texture2D" uid="uid://bj2dj54gchva8" path="res://icon.svg" id="2_6nai3"]
+[ext_resource type="Texture2D" uid="uid://dgkulykt31wc8" path="res://art/tiles/16x24.png" id="2_5lrkg"]
 
 [node name="CrewAgent" type="CharacterBody2D"]
 script = ExtResource("1_ccvnr")
@@ -9,5 +9,6 @@ script = ExtResource("1_ccvnr")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_6nai3")
+texture = ExtResource("2_5lrkg")
+region_enabled = true
+region_rect = Rect2(86, 151, 16, 24)
