@@ -67,6 +67,9 @@ func handle_unhandled_input(event):
 				if event.is_action_pressed("zone_mode_industrial"):
 						_enter_zone_mode(main.ZONE_TYPE_INDUSTRIAL)
 						return
+				if event.is_action_pressed("zone_mode_unpreasurized"):
+						_enter_zone_mode(main.ZONE_TYPE_UNPREASURIZED)
+						return
 				if event.is_action_pressed("zone_mode_clear"):
 						_enter_zone_mode(main.ZONE_TYPE_UNASSIGNED)
 						return
@@ -123,6 +126,7 @@ func _ensure_zone_actions():
 		_register_zone_action("zone_mode_storage", KEY_F2)
 		_register_zone_action("zone_mode_industrial", KEY_F3)
 		_register_zone_action("zone_mode_clear", KEY_F4)
+		_register_zone_action("zone_mode_unpreasurized", KEY_F5)
 		_register_zone_action("zone_mode_cancel", KEY_ESCAPE)
 
 func _register_zone_action(action_name: String, keycode: int):

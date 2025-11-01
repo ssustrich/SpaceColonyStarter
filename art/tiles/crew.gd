@@ -6,8 +6,9 @@ extends Node
 ## --- CONSTANTS ---
 const START_BASE_POS = 50  # Starting tile position (x, y) for the base center on the grid
 const START_BASE_SIZE = 5  # Size of the initial pressurized block (e.g., 5x5)
-const TILE_SIZE = 64       # Assumed size of a single tile in pixels (for world calculation)
-
+const TILE_SIZE = 16      # Assumed size of a single tile in pixels (for world calculation)
+#const TILE_WIDTH = 16
+#const TILE_HEIGHT = 24
 ## --- RESOURCE TRACKING ---
 const STARTING_RESOURCES: Dictionary = {
 	"metal": 100,
@@ -63,7 +64,7 @@ func _initialize_game_systems():
 	power_timer.wait_time = 5.0
 	power_timer.start()
 
-	#_spawn_crew_member()
+	_spawn_crew_member()
 	print("Game systems initialized and running.")
 
 
@@ -131,8 +132,7 @@ func _setup_starting_base():
 	game_camera.global_position = center_world_pos
 	
 	print("Initial base setup complete.")
-
-
+	
 func _spawn_crew_member():
 	var crew_instance = crew_scene.instantiate()
 	add_child(crew_instance)
@@ -146,7 +146,6 @@ func _spawn_crew_member():
 	crew_instance.add_to_group("crew")
 	
 	print("Crew Agent spawned at world position: ", spawn_world_pos)
-
 
 # ==============================================================================
 # GAME LOOP FUNCTIONS (TIMERS)
@@ -432,8 +431,8 @@ func _handle_construction_placement(target_tile_pos: Vector2i):
 		print("Blueprint placed for %s at %s. Metal remaining: %d" % [build_mode, target_tile_pos, resources.metal])
 		
 		# Crew Assignment Logic (Currently disabled as per user request)
-		# if selected_crew:
-		#     selected_crew.set_task(task, target_tile_pos, tilemap.map_to_local(target_tile_pos))
+		if selected_crew:
+			selected_crew.set_task(task, target_tile_pos, tilemap.map_to_local(target_tile_pos))
 
 
 func _place_final_module(module_type: String, tile_pos: Vector2i):

@@ -9,6 +9,7 @@ const ZONE_TYPE_UNASSIGNED := "unassigned"
 const ZONE_TYPE_GENERAL := "general"
 const ZONE_TYPE_STORAGE := "storage"
 const ZONE_TYPE_INDUSTRIAL := "industrial"
+const ZONE_TYPE_UNPREASURIZED := "unpreasurized"
 
 const MODULE_CATEGORIES := {
 	"airlock": "structure",
@@ -26,6 +27,7 @@ const DEFAULT_ZONE_BY_CATEGORY := {
 	"industry": ZONE_TYPE_INDUSTRIAL,
 	"power": ZONE_TYPE_INDUSTRIAL,
 	"storage": ZONE_TYPE_STORAGE,
+	"airlock": ZONE_TYPE_UNPREASURIZED,
 }
 
 var main: Node2D
@@ -138,6 +140,17 @@ func _load_default_zone_definitions() -> void:
 			"layer": 0,
 			"color": Color(1, 1, 1, DEFAULT_OPACITY),
 		},
+		ZONE_TYPE_UNPREASURIZED: {
+			"display_name": "Unsafe",
+			"atlas_coords": Vector3i(3, 7, 7),
+			"opacity": DEFAULT_OPACITY,
+			"allowed_categories": ["airlock"],
+			"job_filters": ["generalist", "engineer"],
+			"layer": 0,
+			"color": Color(1, 1, 1, DEFAULT_OPACITY),
+			
+			
+		}
 	}
 	zone_types = zone_database.keys()
 

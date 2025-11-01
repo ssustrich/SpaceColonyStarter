@@ -85,24 +85,24 @@ func setup_starting_base():
 						construction_manager.set_module_tile("floor", tile_pos)
 						zone_manager.ensure_zone(tile_pos, zone_manager.get_default_zone_for_category(zone_manager.get_module_category("floor")))
 
-		construction_manager.set_module_tile("solar_collector",Vector2i(50, 50))
-		#var starter_modules := {
-				#"solar_collector": Vector2i(2, 5),
-				#"void_drill": Vector2i(2, -1),
-		#}
-#
-		#for module_type in starter_modules.keys():
-				#if not main.MODULE_DATABASE.has(module_type):
-						#push_error("Starter module missing from database: " + module_type)
-						#continue
-#
-				#var module_pos = center_pos + starter_modules[module_type]
-				#var module_data: Dictionary = main.MODULE_DATABASE[module_type]
-#
-				#if module_data.get("place_on_hull", false) or module_data.get("layer") == main.LAYER_HULL:
-						#var existing_tile := GlobalUtils.get_tile_type(main.tilemap, module_pos, main.LAYER_HULL)
-						#if existing_tile != "hull":
-								#construction_manager.set_module_tile("hull", module_pos)
-#
-				#construction_manager.set_module_tile(module_type, module_pos)
-				#zone_manager.ensure_zone(module_pos, zone_manager.get_default_zone_for_category(zone_manager.get_module_category(module_type)))
+		#construction_manager.set_module_tile("solar_collector",Vector2i(50, 50))
+		var starter_modules := {
+				"solar_collector": Vector2i(2, 4),
+				"void_drill": Vector2i(2, 0),
+		}
+
+		for module_type in starter_modules.keys():
+				if not main.MODULE_DATABASE.has(module_type):
+						push_error("Starter module missing from database: " + module_type)
+						continue
+
+				var module_pos = center_pos + starter_modules[module_type]
+				var module_data: Dictionary = main.MODULE_DATABASE[module_type]
+
+				if module_data.get("place_on_hull", false) or module_data.get("layer") == main.LAYER_HULL:
+						var existing_tile := GlobalUtils.get_tile_type(main.tilemap, module_pos, main.LAYER_HULL)
+						if existing_tile != "hull":
+								construction_manager.set_module_tile("hull", module_pos)
+
+				construction_manager.set_module_tile(module_type, module_pos)
+				zone_manager.ensure_zone(module_pos, zone_manager.get_default_zone_for_category(zone_manager.get_module_category(module_type)))
