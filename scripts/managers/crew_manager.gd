@@ -9,14 +9,15 @@ func _init(main_ref, construction_mgr):
         construction_manager = construction_mgr
 
 func spawn_crew_member():
-        var tile_pos = Vector2i(main.START_BASE_POS + main.START_BASE_SIZE/2, main.START_BASE_POS + main.START_BASE_SIZE/2)
-        var spawn_world_pos = main.tilemap.map_to_local(tile_pos)
+        var half_size := int(main.START_BASE_SIZE / 2)
+        var tile_pos := Vector2i(main.START_BASE_POS + half_size, main.START_BASE_POS + half_size)
+        var spawn_world_pos := main.tilemap.map_to_local(tile_pos)
 
         var crew_instance = main.crew_scene.instantiate()
         main.add_child(crew_instance)
         crew_instance.add_to_group("crew")
         crew_instance.global_position = spawn_world_pos
-        crew_instance.initialize(spawn_world_pos)
+        crew_instance.initialize(spawn_world_pos, main)
         print("Crew Agent spawned at world position: " + str(spawn_world_pos))
 
 func handle_crew_commands(event, command_type: String):

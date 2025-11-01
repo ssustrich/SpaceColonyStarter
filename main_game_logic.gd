@@ -104,7 +104,7 @@ func _initialize_game_systems():
 		power_timer.start(5.0)
 		resource_manager.calculate_power()
 		zone_manager.refresh_overlay_from_map()
-		# crew_manager.spawn_crew_member()
+		crew_manager.spawn_crew_member()
 
 # ==============================================================================
 # 2. GAME LOOPS AND RESOURCE MANAGEMENT
